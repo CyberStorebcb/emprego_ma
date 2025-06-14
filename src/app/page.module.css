@@ -474,35 +474,9 @@
   }
 }
 
-/* Dark mode */
-:global(.darkMode) .jobsBar {
-  background: #232946;
-  box-shadow: 0 2px 12px #3b82f618;
-}
-:global(.darkMode) .jobCard {
-  background: #232946;
-  color: #e0e7ef;
-  box-shadow: 0 4px 32px #3b82f644, 0 1.5px 8px #0003;
-  border-color: #3b82f688;
-}
-:global(.darkMode) .jobTitle {
-  color: #60a5fa;
-  text-shadow: 0 2px 8px #3b82f622;
-}
-:global(.darkMode) .badge {
-  border: 1.5px solid #232946;
-}
-:global(.darkMode) .jobInfo {
-  color: #b0b8d1;
-}
-:global(.darkMode) .jobDesc {
-  color: #b0b8d1;
-}
-:root, :global(.darkMode) {
-  transition: background 0.6s, color 0.6s;
-}
 
 .link:focus-visible, .primary:focus-visible, .toggle:focus-visible {
+  
   outline: 3px solid #fbbf24;
   outline-offset: 3px;  
   box-shadow: 0 0 0 4px #2563eb33;
