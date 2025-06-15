@@ -6,9 +6,11 @@ import styles from "./page.module.css";
 
 export default function Home() {
   const [dark, setDark] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   // Carrega a preferência do usuário ao iniciar
   useEffect(() => {
+    setMounted(true);
     const saved = localStorage.getItem("theme");
     if (saved === "dark") setDark(true);
     if (saved === "light") setDark(false);
@@ -24,6 +26,8 @@ export default function Home() {
       localStorage.setItem("theme", "light");
     }
   }, [dark]);
+
+  if (!mounted) return null; // Evita hydration mismatch
 
   return (
     <div className={styles.page}>

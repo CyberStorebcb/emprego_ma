@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "export": "next export",
-    "deploy": "set NEXT_PUBLIC_GITHUB_PAGES=true&& npm run build && npm run export && npx gh-pages -d out"
+    "deploy": "set NEXT_PUBLIC_GITHUB_PAGES=true && npm run build && npx gh-pages -d out"
   },
   "dependencies": {
     "next": "15.3.3",
