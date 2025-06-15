@@ -6,5 +6,4 @@ const nextConfig = {
   basePath: isGithubPages ? "/emprego_ma" : "",
   images: { unoptimized: true },
 };
-
 export default nextConfig;
