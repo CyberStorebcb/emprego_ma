@@ -281,6 +281,50 @@
   background: #232946;
 }
 
+/* Switch customizado para tema */
+.themeSwitch {
+  position: absolute;
+  top: 18px;
+  right: 32px;
+  z-index: 20;
+  width: 54px;
+  height: 28px;
+  background: #e0e7ef;
+  border-radius: 20px;
+  border: 2px solid #2563eb44;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: background 0.3s, border 0.3s;
+  box-shadow: 0 2px 8px #2563eb22;
+}
+:global(.darkMode) .themeSwitch {
+  background: #232946;
+  border: 2px solid #3b82f688;
+}
+.themeSwitchKnob {
+  width: 24px;
+  height: 24px;
+  background: #2563eb;
+  border-radius: 50%;
+  transition: transform 0.3s cubic-bezier(.39,.575,.565,1), background 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 1.1rem;
+  box-shadow: 0 1px 6px #2563eb33;
+  transform: translateX(2px);
+}
+.themeSwitch.dark .themeSwitchKnob {
+  background: #fbbf24;
+  color: #232946;
+  transform: translateX(26px);
+}
+.themeSwitchIcon {
+  pointer-events: none;
+}
+
 /* Container de vagas */
 .jobsBar {
   display: flex;

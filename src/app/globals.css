@@ -40,3 +40,32 @@ a {
     color-scheme: dark;
   }
 }
+
+.darkMode .vagas-root {
+  background: linear-gradient(135deg, #232946 0%, #121629 100%);
+}
+.darkMode .vagas-header,
+.darkMode .vagas-footer {
+  background: #232946;
+  color: #e0e7ef;
+}
+.darkMode .vagas-card {
+  background: #232946;
+  color: #e0e7ef;
+  border-color: #3b82f6;
+}
+.darkMode .vagas-modal {
+  background: #232946;
+  color: #e0e7ef;
+}
+.darkMode .vagas-filtros {
+  background: #232946;
+}
+.darkMode .vagas-btn {
+  background: #3b82f6;
+  color: #fff;
+}
+.darkMode .vagas-btn-yellow {
+  background: #fbbf24;
+  color: #232946;
+}

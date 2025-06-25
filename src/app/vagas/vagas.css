@@ -1,0 +1,421 @@
+/* NOVO LAYOUT DE VAGAS */
+
+/* Reset básico */
+.vagas-root {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f8fafc 0%, #e0e7ef 100%);
+  display: flex;
+  flex-direction: column;
+  font-family: 'Inter', Arial, sans-serif;
+}
+
+/* Header */
+.vagas-header {
+  background: #fff;
+  border-bottom: 1px solid #e0e7ef;
+  box-shadow: 0 2px 8px #2563eb0a;
+  padding: 0;
+}
+.vagas-header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+.vagas-logo {
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  color: #22223b;
+  text-decoration: none;
+}
+.vagas-header nav {
+  display: flex;
+  gap: 18px;
+}
+.vagas-navlink {
+  color: #2563eb;
+  font-weight: 500;
+  text-decoration: none;
+  font-size: 1.08rem;
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: background 0.15s;
+}
+.vagas-navlink.active,
+.vagas-navlink:hover,
+.vagas-navlink:focus {
+  background: #e0e7ef;
+}
+
+/* Hero */
+.vagas-hero {
+  text-align: center;
+  padding: 38px 12px 18px 12px;
+}
+.vagas-hero h1 {
+  font-size: 2.6rem;
+  font-weight: 900;
+  color: #2563eb;
+  letter-spacing: 0.01em;
+  margin-bottom: 10px;
+  text-shadow: 0 2px 12px #0002, 0 1px 0 #fff8;
+}
+.vagas-hero h1 span {
+  color: #fbbf24;
+  text-shadow: 0 2px 12px #0004;
+}
+.vagas-hero p {
+  color: #232946;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0;
+  text-shadow: 0 1px 8px #fff8;
+}
+
+/* Filtros */
+.vagas-filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  justify-content: center;
+  align-items: center;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 16px #2563eb11;
+  padding: 18px 18px 10px 18px;
+  margin: 0 auto 18px auto;
+  max-width: 1100px;
+  width: 100%;
+  position: relative;
+  top: -18px;
+}
+.vagas-filtros input[type="text"],
+.vagas-filtros select,
+.vagas-filtros input[type="number"] {
+  color: #1e293b;           /* Azul escuro para ótima leitura */
+  font-weight: 600;
+  font-size: 1.08rem;
+  font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+  background: #f8fafc;
+  border: 2px solid #2563eb33;
+}
+.vagas-filtros input[type="text"]:focus,
+.vagas-filtros select:focus,
+.vagas-filtros input[type="number"]:focus {
+  border: 1.5px solid #2563eb;
+  outline: none;
+}
+.vagas-filtros input[type="text"]::placeholder {
+  color: #2563eb;           /* Azul forte */
+  opacity: 1;
+  font-size: 1.08rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+}
+.vagas-checkbox {
+  color: #2563eb;
+  font-weight: 600;
+  font-size: 1.08rem;
+  font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+}
+.vagas-filtros input[type="text"] {
+  min-width: 280px;
+  max-width: 380px;
+  width: 100%;
+}
+
+/* Main */
+.vagas-main {
+  flex: 1;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 12px 32px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.vagas-count {
+  margin: 18px 0 18px 0;
+  font-size: 1.08rem;
+  color: #2563eb;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+/* Lista de vagas */
+.vagas-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 32px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.vagas-nojobs {
+  grid-column: 1/-1;
+  text-align: center;
+  color: #6b7280;
+  font-size: 1.2rem;
+  padding: 48px 0;
+}
+.vagas-nojobs span {
+  font-size: 2.2rem;
+  display: block;
+  margin-bottom: 8px;
+}
+
+/* Card de vaga */
+.vagas-card {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px #2563eb13;
+  padding: 28px 26px 22px 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border: 1.5px solid #e0e7ef;
+  transition: box-shadow 0.2s, border 0.2s, transform 0.18s;
+  position: relative;
+}
+.vagas-card:hover, .vagas-card:focus-within {
+  border: 1.5px solid #2563eb;
+  box-shadow: 0 8px 32px #2563eb22;
+  transform: translateY(-2px) scale(1.012);
+  outline: none;
+}
+.vagas-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.vagas-card-header h2 {
+  font-size: 1.18rem;
+  font-weight: 700;
+  color: #2563eb;
+  margin: 0;
+}
+.vagas-badges {
+  display: flex;
+  gap: 6px;
+}
+.vagas-badge {
+  display: inline-block;
+  padding: 2px 12px;
+  border-radius: 12px;
+  font-size: 0.98rem;
+  font-weight: 600;
+  background: #e0e7ef;
+  color: #2563eb;
+  letter-spacing: 0.01em;
+}
+.vagas-badge-júnior { background: #dbeafe; color: #2563eb; }
+.vagas-badge-pleno { background: #fef9c3; color: #b45309; }
+.vagas-badge-sênior { background: #fee2e2; color: #b91c1c; }
+.vagas-badge-remote { background: #bbf7d0; color: #047857; }
+
+.vagas-card-meta {
+  display: flex;
+  gap: 16px;
+  color: #475569;
+  font-size: 1.01rem;
+  margin-bottom: 2px;
+}
+.vagas-card-desc {
+  color: #334155;
+  font-size: 1.04rem;
+  margin-bottom: 2px;
+}
+.vagas-card-info {
+  display: flex;
+  gap: 18px;
+  color: #64748b;
+  font-size: 1.01rem;
+  margin-bottom: 2px;
+}
+.vagas-card-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+/* Botões */
+.vagas-btn {
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 9px 22px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s, box-shadow 0.18s;
+  box-shadow: 0 2px 8px #2563eb22;
+}
+.vagas-btn:hover, .vagas-btn:focus {
+  background: #1d4ed8;
+  color: #fff;
+  outline: 2px solid #2563eb55;
+}
+.vagas-btn-yellow {
+  background: #fbbf24;
+  color: #232946;
+}
+.vagas-btn-yellow:hover, .vagas-btn-yellow:focus {
+  background: #f59e42;
+  color: #232946;
+}
+
+/* Modal */
+.vagas-modal-bg {
+  position: fixed;
+  inset: 0;
+  background: rgba(36, 41, 46, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  animation: fadeIn 0.2s;
+}
+.vagas-modal {
+  background: #fff;
+  border-radius: 18px;
+  padding: 36px 30px 28px 30px;
+  max-width: 420px;
+  width: 95vw;
+  box-shadow: 0 8px 32px #2563eb33;
+  position: relative;
+  animation: fadeInDown 0.25s;
+}
+.vagas-modal-close {
+  position: absolute;
+  top: 10px;
+  right: 18px;
+  background: none;
+  border: none;
+  font-size: 2.2rem;
+  color: #2563eb;
+  cursor: pointer;
+  font-weight: 700;
+}
+.vagas-modal h2 {
+  margin-top: 0;
+  font-size: 1.25rem;
+  color: #2563eb;
+}
+
+/* Footer */
+.vagas-footer {
+  background: #fff;
+  border-top: 1px solid #e0e7ef;
+  text-align: center;
+  font-size: 1rem;
+  color: #64748b;
+  padding: 18px 0 8px 0;
+}
+.vagas-footer div {
+  margin-bottom: 6px;
+}
+.vagas-footer a {
+  color: #2563eb;
+  margin: 0 10px;
+  text-decoration: none;
+  font-weight: 500;
+}
+.vagas-footer a:hover, .vagas-footer a:focus {
+  text-decoration: underline;
+}
+
+/* Animações */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-32px);}
+  to { opacity: 1; transform: translateY(0);}
+}
+
+/* Responsividade */
+@media (max-width: 900px) {
+  .vagas-header-content, .vagas-main, .vagas-filtros {
+    max-width: 98vw;
+    padding-left: 6px;
+    padding-right: 6px;
+  }
+  .vagas-list {
+    grid-template-columns: 1fr;
+  }
+  .vagas-hero h1 {
+    font-size: 1.5rem;
+  }
+  .vagas-modal {
+    padding: 18px 8px 16px 8px;
+  }
+}
+
+.darkMode .vagas-filtros input[type="text"],
+.darkMode .vagas-filtros select,
+.darkMode .vagas-filtros input[type="number"] {
+  background: #232946;
+  color: #fbbf24;
+  border: 2px solid #fbbf24;
+}
+
+.darkMode .vagas-filtros input[type="text"]::placeholder {
+  color: #fbbf24;
+  opacity: 1;
+  font-weight: 700;
+}
+.darkMode .vagas-checkbox {
+  color: #fbbf24;
+}
+
+.darkMode .vagas-header {
+  background: rgba(36, 41, 70, 0.98); /* Fundo mais claro e levemente translúcido */
+  color: #fff;
+  border-bottom: 2px solid #fbbf24;
+  box-shadow: 0 2px 12px #0004;
+}
+
+.darkMode .vagas-header-content {
+  color: #fff;
+}
+
+.darkMode .vagas-logo {
+  color: #fff !important;
+}
+
+.darkMode .vagas-header nav .vagas-navlink {
+  color: #fbbf24;
+  background: transparent;
+}
+
+.darkMode .vagas-header nav .vagas-navlink.active,
+.darkMode .vagas-header nav .vagas-navlink:hover,
+.darkMode .vagas-header nav .vagas-navlink:focus {
+  background: #232946;
+  color: #fff;
+  border-radius: 8px;
+}
+
+.darkMode .vagas-hero h1 {
+  color: #fbbf24;
+  text-shadow: 0 2px 16px #000a, 0 1px 0 #232946;
+}
+
+.darkMode .vagas-hero h1 span {
+  color: #3b82f6;
+  text-shadow: 0 2px 16px #000a;
+}
+
+.darkMode .vagas-hero p {
+  color: #fff;
+  text-shadow: 0 2px 12px #000a;
+}
