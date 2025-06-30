@@ -501,11 +501,33 @@ function CandidateForm({ jobTitle }: { jobTitle: string }) {
   const [curriculo, setCurriculo] = useState<File | null>(null);
   const [enviado, setEnviado] = useState(false);
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setEnviado(true);
-    setTimeout(() => setEnviado(false), 2500);
-    // Aqui você pode integrar com backend ou serviço de e-mail
+    const formData = new FormData();
+    formData.append("nome", nome);
+    formData.append("email", email);
+    formData.append("telefone", telefone);
+    formData.append("cpf", cpf);
+    formData.append("nascimento", nascimento);
+    if (curriculo) formData.append("curriculo", curriculo);
+
+    const res = await fetch("/api/candidatura", {
+      method: "POST",
+      body: formData,
+    });
+
+    if (res.ok) {
+      setEnviado(true);
+      setNome("");
+      setEmail("");
+      setTelefone("");
+      setCpf("");
+      setNascimento("");
+      setCurriculo(null);
+      setTimeout(() => setEnviado(false), 2500);
+    } else {
+      alert("Erro ao enviar candidatura.");
+    }
   }
 
   return (

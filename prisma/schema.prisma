@@ -1,0 +1,19 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Candidatura {
+  id         Int      @id @default(autoincrement())
+  nome       String
+  email      String
+  telefone   String
+  cpf        String
+  nascimento DateTime
+  curriculo  String?  // Caminho ou nome do arquivo
+  createdAt  DateTime @default(now())
+}
