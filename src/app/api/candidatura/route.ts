@@ -11,12 +11,6 @@ export async function POST(req: NextRequest) {
     const telefone = data.get("telefone") as string;
     const cpf = data.get("cpf") as string;
     const nascimento = data.get("nascimento") as string;
-    const curriculo = data.get("curriculo");
-
-    let curriculoPath = null;
-    if (curriculo && typeof curriculo !== "string") {
-      curriculoPath = curriculo.name;
-    }
 
     const candidatura = await prisma.candidatura.create({
       data: {
@@ -25,7 +19,7 @@ export async function POST(req: NextRequest) {
         telefone,
         cpf,
         nascimento: new Date(nascimento),
-        curriculo: curriculoPath,
+        curriculo: "", // ou null
       },
     });
 
