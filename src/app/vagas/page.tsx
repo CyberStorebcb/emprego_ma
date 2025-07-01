@@ -501,6 +501,8 @@ function CandidateForm({ jobTitle }: { jobTitle: string }) {
   const [curriculo, setCurriculo] = useState<File | null>(null);
   const [enviado, setEnviado] = useState(false);
 
+  const curriculoPath = ""; // ou null
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     const formData = new FormData();
