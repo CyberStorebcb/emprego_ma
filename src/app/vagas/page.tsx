@@ -500,35 +500,62 @@ function CandidateForm({ jobTitle }: { jobTitle: string }) {
   const [nascimento, setNascimento] = useState("");
   const [curriculo, setCurriculo] = useState<File | null>(null);
   const [enviado, setEnviado] = useState(false);
+  const [enviando, setEnviando] = useState(false);
+  const [erro, setErro] = useState("");
 
-  const curriculoPath = ""; // ou null
+  // Função para formatar CPF
+  function formatarCPF(value: string) {
+    const numeros = value.replace(/\D/g, '');
+    return numeros.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+  }
+
+  // Função para formatar telefone
+  function formatarTelefone(value: string) {
+    const numeros = value.replace(/\D/g, '');
+    return numeros.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append("nome", nome);
-    formData.append("email", email);
-    formData.append("telefone", telefone);
-    formData.append("cpf", cpf);
-    formData.append("nascimento", nascimento);
-    if (curriculo) formData.append("curriculo", curriculo);
+    setEnviando(true);
+    setErro("");
 
-    const res = await fetch("/api/candidatura", {
-      method: "POST",
-      body: formData,
-    });
+    try {
+      const formData = new FormData();
+      formData.append("nome", nome);
+      formData.append("email", email);
+      formData.append("telefone", telefone);
+      formData.append("cpf", cpf);
+      formData.append("nascimento", nascimento);
+      if (curriculo) formData.append("curriculo", curriculo);
 
-    if (res.ok) {
-      setEnviado(true);
-      setNome("");
-      setEmail("");
-      setTelefone("");
-      setCpf("");
-      setNascimento("");
-      setCurriculo(null);
-      setTimeout(() => setEnviado(false), 2500);
-    } else {
-      alert("Erro ao enviar candidatura.");
+      console.log("Enviando candidatura...");
+
+      const res = await fetch("/api/candidatura", {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await res.json();
+      console.log("Resposta da API:", data);
+
+      if (res.ok && data.sucesso) {
+        setEnviado(true);
+        setNome("");
+        setEmail("");
+        setTelefone("");
+        setCpf("");
+        setNascimento("");
+        setCurriculo(null);
+        setTimeout(() => setEnviado(false), 3000);
+      } else {
+        setErro(data.erro || "Erro ao enviar candidatura. Tente novamente.");
+      }
+    } catch (error) {
+      console.error("Erro ao enviar candidatura:", error);
+      setErro("Erro de conexão. Verifique sua internet e tente novamente.");
+    } finally {
+      setEnviando(false);
     }
   }
 
@@ -552,16 +579,18 @@ function CandidateForm({ jobTitle }: { jobTitle: string }) {
       />
       <input
         type="tel"
-        placeholder="Seu Whatsapp"
+        placeholder="Seu WhatsApp (99) 99999-9999"
         value={telefone}
-        onChange={e => setTelefone(e.target.value)}
+        onChange={e => setTelefone(formatarTelefone(e.target.value))}
+        required
+        maxLength={15}
         style={{ padding: 8, borderRadius: 6, border: "1.5px solid #2563eb" }}
       />
       <input
         type="text"
-        placeholder="CPF"
+        placeholder="CPF (000.000.000-00)"
         value={cpf}
-        onChange={e => setCpf(e.target.value)}
+        onChange={e => setCpf(formatarCPF(e.target.value))}
         required
         maxLength={14}
         style={{ padding: 8, borderRadius: 6, border: "1.5px solid #2563eb" }}
@@ -580,21 +609,36 @@ function CandidateForm({ jobTitle }: { jobTitle: string }) {
           type="file"
           accept=".pdf,.doc,.docx"
           onChange={e => setCurriculo(e.target.files?.[0] || null)}
-          required
           style={{ marginTop: 4 }}
         />
       </label>
+      
+      {erro && (
+        <div style={{ 
+          color: "#dc2626", 
+          fontWeight: 600, 
+          fontSize: "0.9rem",
+          padding: "8px",
+          backgroundColor: "#fef2f2",
+          borderRadius: "4px",
+          border: "1px solid #fecaca"
+        }}>
+          {erro}
+        </div>
+      )}
+      
       <button
         type="submit"
         className="vagas-btn"
         style={{ marginTop: 8, fontWeight: 700 }}
-        disabled={enviado}
+        disabled={enviando || enviado}
       >
-        {enviado ? "Enviado!" : `Enviar candidatura`}
+        {enviando ? "Enviando..." : enviado ? "Enviado!" : "Enviar candidatura"}
       </button>
+      
       {enviado && (
         <span style={{ color: "#22c55e", fontWeight: 600, marginTop: 4 }}>
-          Candidatura enviada com sucesso!
+          ✅ Candidatura enviada com sucesso!
         </span>
       )}
     </form>
