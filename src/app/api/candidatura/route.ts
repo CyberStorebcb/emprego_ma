@@ -13,14 +13,16 @@ export async function POST(req: NextRequest) {
     const telefone = data.get("telefone") as string;
     const cpf = data.get("cpf") as string;
     const nascimento = data.get("nascimento") as string;
+    const vaga = data.get("vaga") as string;
+    const localizacao = data.get("localizacao") as string;
 
-    console.log("Dados recebidos:", { nome, email, telefone, cpf, nascimento });
+    console.log("Dados recebidos:", { nome, email, telefone, cpf, nascimento, vaga, localizacao });
 
     // Validar campos obrigatórios
     if (!nome || !email || !telefone || !cpf || !nascimento) {
       console.error("Campos obrigatórios não preenchidos");
       return NextResponse.json(
-        { sucesso: false, erro: "Todos os campos são obrigatórios." },
+        { sucesso: false, erro: "Todos os campos obrigatórios devem ser preenchidos." },
         { status: 400 }
       );
     }
@@ -44,7 +46,7 @@ export async function POST(req: NextRequest) {
         telefone,
         cpf,
         nascimento: dataValida,
-        curriculo: "", // ou null
+        curriculo: null, // Implementar upload de arquivo posteriormente
       },
     });
 
@@ -52,10 +54,13 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ 
       sucesso: true, 
+      mensagem: "Candidatura enviada com sucesso!",
       candidatura: {
         id: candidatura.id,
         nome: candidatura.nome,
-        email: candidatura.email
+        email: candidatura.email,
+        vaga: vaga,
+        localizacao: localizacao
       }
     });
 
@@ -73,7 +78,7 @@ export async function POST(req: NextRequest) {
       
       if (error.message.includes("unique constraint")) {
         return NextResponse.json(
-          { sucesso: false, erro: "E-mail ou CPF já cadastrado." },
+          { sucesso: false, erro: "E-mail ou CPF já cadastrado para esta vaga." },
           { status: 409 }
         );
       }

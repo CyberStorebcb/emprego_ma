@@ -276,22 +276,29 @@
 .vagas-modal-bg {
   position: fixed;
   inset: 0;
-  background: rgba(36, 41, 46, 0.18);
+  z-index: 1000;
+  background: rgba(30, 41, 59, 0.55);
+  backdrop-filter: blur(6px);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 100;
-  animation: fadeIn 0.2s;
+  overflow-y: auto;
+  padding: 24px 8px;
 }
 .vagas-modal {
   background: #fff;
-  border-radius: 18px;
-  padding: 36px 30px 28px 30px;
+  color: #232946;
+  border-radius: 12px;
+  padding: 24px 18px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
   max-width: 420px;
-  width: 95vw;
-  box-shadow: 0 8px 32px #2563eb33;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  margin: 0 auto;
   position: relative;
-  animation: fadeInDown 0.25s;
+  display: flex;
+  flex-direction: column;
 }
 .vagas-modal-close {
   position: absolute;
@@ -360,6 +367,52 @@
   }
 }
 
+@media (max-width: 600px) {
+  .vagas-card,
+  .vagas-modal {
+    padding: 12px 6px !important;
+    font-size: 0.98rem;
+  }
+  .vagas-card-header h2 {
+    font-size: 1.05rem !important;
+  }
+  .vagas-card-info,
+  .vagas-card-meta {
+    flex-direction: column !important;
+    gap: 4px !important;
+  }
+}
+
+/* Modo Dark - Geral */
+.darkMode {
+  --cor-fundo: #161622;
+  --cor-fundo-secundario: #1e1e2e;
+  --cor-texto: #e0e0e0;
+  --cor-texto-secundario: #b0b0b0;
+  --cor-link: #3b82f6;
+  --cor-link-hover: #2563eb;
+  --cor-borda: #2a2a3d;
+  --cor-sombra: rgba(0, 0, 0, 0.5);
+  --cor-success-bg: #065f46;
+  --cor-success-border: #059669;
+  --cor-success-text: #34d399;
+  --cor-error-bg: #7f1d1d;
+  --cor-error-border: #dc2626;
+  --cor-error-text: #fca5a5;
+}
+
+/* Modo Dark - Geral */
+.darkMode {
+  background-color: var(--cor-fundo);
+  color: var(--cor-texto);
+}
+
+.darkMode .vagas-filtros {
+  background: #161622;
+  border: 2px solid #3b82f6;
+  box-shadow: 0 2px 16px rgba(59, 130, 246, 0.2);
+}
+
 .darkMode .vagas-filtros input[type="text"],
 .darkMode .vagas-filtros select,
 .darkMode .vagas-filtros input[type="number"] {
@@ -418,4 +471,51 @@
 .darkMode .vagas-hero p {
   color: #fff;
   text-shadow: 0 2px 12px #000a;
+}
+
+/* Adicionar estas regras CSS para o modo dark */
+
+/* Modo Dark - Featured badges */
+.darkMode .vagas-badge-featured {
+  background: #fbbf24;
+  color: #232946;
+}
+
+.darkMode .vagas-badge-urgent {
+  background: #f97316;
+  color: #fff;
+}
+
+/* Modo Dark - Placeholder dos inputs */
+.darkMode input::placeholder {
+  color: #fbbf24 !important;
+  opacity: 0.8;
+}
+
+.darkMode input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
+
+/* Modo Dark - Labels */
+.darkMode label {
+  color: #fbbf24;
+}
+
+/* Modo Dark - Small text */
+.darkMode small {
+  color: #94a3b8;
+}
+
+/* Modo Dark - Success message */
+.darkMode .success-message {
+  background: #065f46;
+  border-color: #059669;
+  color: #34d399;
+}
+
+/* Modo Dark - Error message */
+.darkMode .error-message {
+  background: #7f1d1d;
+  border-color: #dc2626;
+  color: #fca5a5;
 }

@@ -142,11 +142,11 @@ export default function Home() {
       <main className={styles.main} id="conteudo-principal" tabIndex={-1}>
         <h1 className={styles.title}>
           Bem-vindo ao{" "}
-          <span style={{ color: "#2563eb" }}>Emprego MA</span>
+          <span style={{ color: "#2563eb" }}>Emprego Brasil</span>
         </h1>
         <p className={styles.text}>
-          Encontre oportunidades de trabalho no Maranhão de forma simples,
-          acessível e moderna.
+          Encontre oportunidades de trabalho em todo o Brasil de forma simples,
+          acessível e moderna. Vagas em todas as capitais e principais cidades.
         </p>
         <div className={styles.ctas}>
           <Link href="/vagas" className={`${styles.link} ${styles.primary}`}>
@@ -157,7 +157,7 @@ export default function Home() {
       <footer className={styles.footer}>
         <p>
           <small>
-            © {new Date().getFullYear()} Emprego MA — Feito com Next.js
+            © {new Date().getFullYear()} Emprego Brasil — Conectando talentos em todo o país
           </small>
         </p>
       </footer>
