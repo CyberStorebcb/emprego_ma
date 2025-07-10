@@ -500,49 +500,24 @@ export default function Vagas() {
           </nav>
         </div>
         <button
-          className={`themeSwitch${dark ? " dark" : ""}`}
-          aria-label="Alternar modo claro/escuro"
+          className="themeSwitch"
+          aria-label={dark ? "Ativar modo claro" : "Ativar modo escuro"}
           type="button"
-          tabIndex={0}
+          style={{
+            position: "absolute",
+            top: 18,
+            right: 32,
+            background: "none",
+            border: "none",
+            cursor: "pointer",
+            fontSize: 24,
+            padding: 4,
+            color: dark ? "#fbbf24" : "#2563eb",
+            transition: "color 0.2s"
+          }}
           onClick={() => setDark((v: boolean) => !v)}
-          style={{ touchAction: "none", position: "absolute", top: 18, right: 32 }}
         >
-          <span
-            ref={knobRef}
-            className="themeSwitchKnob"
-            style={{
-              transform: dragging
-                ? `translateX(${dragX}px)`
-                : dark
-                ? "translateX(26px)"
-                : "translateX(2px)",
-              transition: dragging ? "none" : undefined,
-              cursor: dragging ? "grabbing" : "grab",
-            }}
-            onMouseDown={onDragStart}
-            onTouchStart={onDragStart}
-            aria-hidden="true"
-          >
-            {dark ? (
-              <svg className="themeSwitchIcon" width={18} height={18} viewBox="0 0 24 24" fill="none">
-                <path d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z" fill="#232946" />
-              </svg>
-            ) : (
-              <svg className="themeSwitchIcon" width={18} height={18} viewBox="0 0 24 24" fill="none">
-                <circle cx="12" cy="12" r="5" fill="#fff" />
-                <g stroke="#fff" strokeWidth="2">
-                  <line x1="12" y1="1" x2="12" y2="3" />
-                  <line x1="12" y1="21" x2="12" y2="23" />
-                  <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
-                  <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
-                  <line x1="1" y1="12" x2="3" y2="12" />
-                  <line x1="21" y1="12" x2="23" y2="12" />
-                  <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
-                  <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
-                </g>
-              </svg>
-            )}
-          </span>
+          {dark ? "🌙" : "☀️"}
         </button>
       </header>
 
@@ -683,8 +658,23 @@ export default function Vagas() {
           )}
           {paginatedJobs.map((job) => (
             <li key={job.id} className={`vagas-card ${job.featured ? "featured" : ""}`}>
-              <div className="vagas-card-header" style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-                <h2 style={{ color: "#2563eb", fontWeight: 800, fontSize: "1.2rem", margin: 0 }}>
+              <div
+                className="vagas-card-header"
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 6,
+                  color: dark ? "#cbd5e1" : "#232946" // <-- cor do texto principal
+                }}
+              >
+                <h2
+                  style={{
+                    color: dark ? "#fbbf24" : "#2563eb",
+                    fontWeight: 800,
+                    fontSize: "1.2rem",
+                    margin: 0
+                  }}
+                >
                   {job.title}
                 </h2>
                 <div style={{ display: "flex", flexWrap: "wrap", gap: 6, alignItems: "center" }}>
@@ -695,20 +685,49 @@ export default function Vagas() {
                   <span className="vagas-badge" style={{ background: "#e0f2fe", color: "#0369a1" }}>{job.region}</span>
                   <span className="vagas-badge" style={{ background: "#f0fdf4", color: "#15803d" }}>{job.type}</span>
                 </div>
-                <div style={{ color: "#64748b", fontWeight: 500, fontSize: "1rem", marginTop: 2 }}>
-                  <span>🏢 {job.company}</span> &nbsp;|&nbsp; 
-                  <span>📍 {job.location}</span> &nbsp;|&nbsp; 
+                <div
+                  style={{
+                    color: dark ? "#94a3b8" : "#232946",
+                    fontWeight: 500,
+                    fontSize: "1rem",
+                    marginTop: 2
+                  }}
+                >
+                  <span>🏢 {job.company}</span> &nbsp;|&nbsp;
+                  <span>📍 {job.location}</span> &nbsp;|&nbsp;
                   <span>📅 {job.createdAt.toLocaleDateString('pt-BR')}</span>
                 </div>
               </div>
-              <div className="vagas-card-desc" style={{ margin: "10px 0", color: "#cbd5e1", fontSize: "1rem" }}>
+              <div
+                className="vagas-card-desc"
+                style={{
+                  margin: "10px 0",
+                  color: dark ? "#cbd5e1" : "#232946", // <-- cor da descrição
+                  fontSize: "1rem"
+                }}
+              >
                 {job.description}
               </div>
-              <div className="vagas-card-benefits" style={{ marginBottom: 8 }}>
+              <div
+                className="vagas-card-benefits"
+                style={{
+                  marginBottom: 8,
+                  color: dark ? "#cbd5e1" : "#232946" // <-- cor dos benefícios
+                }}
+              >
                 <strong>Benefícios:</strong> {job.benefits.slice(0, 3).join(", ")}
                 {job.benefits.length > 3 && " ..."}
               </div>
-              <div className="vagas-card-info" style={{ display: "flex", gap: 16, flexWrap: "wrap", fontSize: "1rem" }}>
+              <div
+                className="vagas-card-info"
+                style={{
+                  display: "flex",
+                  gap: 16,
+                  flexWrap: "wrap",
+                  fontSize: "1rem",
+                  color: dark ? "#cbd5e1" : "#232946" // <-- cor das infos
+                }}
+              >
                 <span>🎓 {job.education}</span>
                 <span>💰 R$ {job.salary.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}</span>
               </div>
