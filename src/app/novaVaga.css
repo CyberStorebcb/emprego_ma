@@ -1,0 +1,363 @@
+.nova-root {
+  min-height: 100vh;
+  background: linear-gradient(120deg, #e0e7ff 0%, #a5b4fc 100%);
+  font-family: 'Inter', Arial, sans-serif;
+  color: #232946;
+  transition: background 0.3s;
+  display: flex;
+  flex-direction: column;
+}
+.nova-root.escuro {
+  background: linear-gradient(120deg, #18182f 0%, #232946 100%);
+  color: #f3f4f6;
+}
+.nova-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 32px 5vw 0 5vw;
+}
+.nova-logo {
+  font-size: 2.2rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+.nova-logo-accent {
+  color: #6366f1;
+}
+.nova-root.escuro .nova-logo,
+.nova-root.escuro .nova-logo-accent {
+  color: #38bdf8;
+  text-shadow: none;
+}
+.nova-theme {
+  background: none;
+  border: none;
+  font-size: 1.7rem;
+  cursor: pointer;
+  color: #6366f1;
+  transition: color 0.2s;
+}
+.nova-root.escuro .nova-theme {
+  color: #38bdf8;
+}
+.nova-header {
+  text-align: center;
+  margin: 40px 0 24px 0;
+}
+.nova-header h1 {
+  font-size: 2.7rem;
+  font-weight: 800;
+  margin-bottom: 18px;
+}
+.nova-gradient {
+  background: linear-gradient(90deg, #6366f1 0%, #2563eb 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.nova-root.escuro .nova-gradient {
+  background: none;
+  color: #38bdf8;
+  text-shadow: none;
+  font-weight: 900;
+}
+.nova-header p {
+  color: #374151;
+  font-size: 1.18rem;
+  margin-bottom: 32px;
+}
+.nova-root.escuro .nova-header p {
+  color: #cbd5e1;
+  text-shadow: none;
+}
+.nova-searchbar {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+.nova-searchbar input {
+  padding: 14px 22px;
+  border-radius: 18px;
+  border: 2px solid #6366f1;
+  font-size: 1.1rem;
+  min-width: 320px;
+  transition: border 0.2s;
+}
+.nova-root.escuro .nova-searchbar input {
+  background: #232946;
+  color: #f3f4f6;
+  border: 2px solid #38bdf8;
+  box-shadow: none;
+}
+.nova-root.escuro .nova-searchbar input::placeholder {
+  color: #94a3b8;
+}
+.nova-main {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 0 5vw 32px 5vw;
+}
+.nova-lista {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 32px;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  list-style: none;
+  padding: 0;
+}
+.nova-card {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 8px 32px rgba(99,102,241,0.13);
+  padding: 32px 28px 24px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: box-shadow 0.2s, transform 0.2s;
+  position: relative;
+  min-height: 220px;
+}
+.nova-card.destaque {
+  border: 2.5px solid #6366f1;
+  box-shadow: 0 8px 40px #6366f144;
+}
+.nova-root.escuro .nova-card {
+  background: #232946;
+  color: #f3f4f6;
+  border: 2px solid #38bdf8;
+  box-shadow: none;
+}
+.nova-root.escuro .nova-card.destaque {
+  border: 2.5px solid #38bdf8;
+  box-shadow: none;
+}
+.nova-root.escuro .nova-card-header h2 {
+  color: #38bdf8;
+  text-shadow: none;
+}
+.nova-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+.nova-card-header h2 {
+  font-size: 1.35rem;
+  font-weight: 800;
+  margin-bottom: 0;
+  color: #6366f1;
+}
+.nova-root.escuro .nova-empresa,
+.nova-root.escuro .nova-cidade {
+  color: #60a5fa;
+}
+.nova-desc {
+  font-size: 1.08rem;
+  color: #232946;
+  margin-bottom: 8px;
+}
+.nova-root.escuro .nova-desc {
+  color: #f3f4f6;
+}
+.nova-tags {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.nova-tag {
+  background: #6366f1;
+  color: #fff;
+  border-radius: 8px;
+  padding: 4px 14px;
+  font-size: 0.98rem;
+  font-weight: 600;
+}
+.nova-tag.remoto {
+  background: #2563eb;
+}
+.nova-root.escuro .nova-tag {
+  background: #38bdf8;
+  color: #232946;
+  box-shadow: none;
+}
+.nova-root.escuro .nova-tag.remoto {
+  background: #60a5fa;
+  color: #232946;
+}
+.nova-btn {
+  background: linear-gradient(90deg, #6366f1 0%, #2563eb 100%);
+  color: #fff;
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 1.08rem;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+.nova-btn:hover {
+  background: linear-gradient(90deg, #2563eb 0%, #6366f1 100%);
+  transform: scale(1.04);
+}
+.nova-root.escuro .nova-btn {
+  background: #38bdf8;
+  color: #232946;
+  font-weight: 700;
+  box-shadow: none;
+}
+.nova-root.escuro .nova-btn:hover {
+  background: #60a5fa;
+  transform: scale(1.04);
+}
+.nova-sem-vagas {
+  text-align: center;
+  color: #6366f1;
+  font-size: 1.2rem;
+  margin-top: 48px;
+}
+.nova-root.escuro .nova-sem-vagas {
+  color: #38bdf8;
+}
+.nova-modal-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(99,102,241,0.18);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-y: auto;
+  padding: 24px 8px;
+}
+.nova-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(30,41,59,0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+.nova-form {
+  background: #fff;
+  color: #232946;
+  border-radius: 18px;
+  padding: 32px 24px;
+  box-shadow: 0 8px 32px rgba(37,99,235,0.18);
+  max-width: 440px;
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.nova-root.escuro .nova-form {
+  background: #232946;
+  color: #fbbf24;
+}
+.nova-modal-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: #6366f1;
+  cursor: pointer;
+  z-index: 10;
+}
+.nova-root.escuro .nova-modal-close {
+  color: #38bdf8;
+}
+.nova-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 12px;
+  background: #fff;
+  padding: 32px 24px;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  min-width: 320px;
+}
+.nova-form input {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1.5px solid #6366f1;
+  background: #f8fafc;
+  color: #232946;
+  font-size: 1rem;
+  transition: border 0.2s;
+}
+.nova-root.escuro .nova-form input {
+  background: #18182f;
+  color: #f3f4f6;
+  border: 1.5px solid #38bdf8;
+}
+.nova-root.escuro .nova-form input::placeholder {
+  color: #94a3b8;
+}
+.nova-root.escuro .nova-form {
+  background: #232946;
+  color: #fbbf24;
+}
+.nova-root.escuro .nova-form button {
+  background: #38bdf8;
+  color: #232946;
+  box-shadow: none;
+}
+.nova-root.escuro .nova-form button:hover {
+  background: #60a5fa;
+  transform: scale(1.04);
+}
+.nova-footer {
+  background: transparent;
+  text-align: center;
+  padding: 32px 0 18px 0;
+  font-size: 1.08rem;
+  color: #64748b;
+}
+.nova-root.escuro .nova-footer {
+  color: #94a3b8;
+  text-shadow: none;
+}
+.nova-filtros {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+.nova-filtros select {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1.5px solid #6366f1;
+  font-size: 1rem;
+}
+.nova-root.escuro .nova-filtros select {
+  background: #232946;
+  color: #f3f4f6;
+  border: 1.5px solid #38bdf8;
+}
+
+@media (max-width: 700px) {
+  .nova-nav, .nova-header, .nova-main {
+    padding: 18px 2vw 0 2vw;
+  }
+  .nova-lista {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .nova-card {
+    padding: 18px 10px 14px 10px;
+  }
+  .nova-modal {
+    padding: 18px 6px;
+    max-width: 98vw;
+  }
+}
