@@ -162,11 +162,19 @@ function CandidateForm({ jobTitle, jobLocation, dark }: { jobTitle: string; jobL
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [telefone, setTelefone] = useState("");
+  const [cpf, setCpf] = useState("");
+  const [nascimento, setNascimento] = useState("");
   const [enviado, setEnviado] = useState(false);
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setEnviado(true);
+
+    await fetch("/api/candidatura", {
+      method: "POST",
+      body: new FormData(e.target as HTMLFormElement),
+    });
+
     setTimeout(() => setEnviado(false), 2500);
   }
 
@@ -174,6 +182,7 @@ function CandidateForm({ jobTitle, jobLocation, dark }: { jobTitle: string; jobL
     <form className="vagas-form-new" onSubmit={handleSubmit}>
       <input
         type="text"
+        name="nome"
         placeholder="Seu nome completo"
         value={nome}
         onChange={e => setNome(e.target.value)}
@@ -188,9 +197,26 @@ function CandidateForm({ jobTitle, jobLocation, dark }: { jobTitle: string; jobL
       />
       <input
         type="tel"
+        name="telefone"
         placeholder="WhatsApp"
         value={telefone}
         onChange={e => setTelefone(e.target.value)}
+        required
+      />
+      <input
+        type="text"
+        name="cpf"
+        placeholder="CPF 000.000.000-00"
+        value={cpf}
+        onChange={e => setCpf(e.target.value)}
+        required
+      />
+      <input
+        type="text"
+        name="nascimento"
+        placeholder="Data de nascimento"
+        value={nascimento}
+        onChange={e => setNascimento(e.target.value)}
         required
       />
       <button type="submit" className="vagas-btn-new" disabled={enviado}>

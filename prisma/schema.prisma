@@ -12,7 +12,7 @@ model Candidatura {
   nome         String
   telefone     String
   cpf          String
-  nascimento   DateTime
+  nascimento   String
   vaga         String?
   localizacao  String?
   curriculo    String?

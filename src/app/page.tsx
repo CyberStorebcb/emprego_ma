@@ -131,21 +131,10 @@ export default function Home() {
     async function handleSubmit(e: React.FormEvent) {
       e.preventDefault();
       setErro("");
+      const form = e.target as HTMLFormElement;
+      const formData = new FormData(form);
 
-      if (!validarCPF(cpf)) {
-        setErro("CPF inválido. Use o formato 000.000.000-00");
-        return;
-      }
-      if (!validarTelefone(telefone)) {
-        setErro("Telefone inválido. Use o formato (99) 99999-9999");
-        return;
-      }
-
-      const formData = new FormData();
-      formData.append("nome", nome);
-      formData.append("telefone", telefone);
-      formData.append("cpf", cpf);
-      formData.append("nascimento", nascimento);
+      // Adicione vaga e localizacao (caso não estejam em inputs)
       formData.append("vaga", vaga);
       formData.append("localizacao", localizacao);
 
@@ -154,26 +143,12 @@ export default function Home() {
         body: formData,
       });
 
-      const result = await res.json();
-      if (result.sucesso) {
-        setEnviado(true);
-        setTimeout(() => {
-          setEnviado(false);
-          onClose();
-        }, 2000);
-      } else {
-        setErro(result.erro || "Erro ao enviar candidatura.");
-      }
-    }
-
-    // Validação de CPF: 000.000.000-00
-    function validarCPF(cpf: string) {
-      return /^\d{3}\.\d{3}\.\d{3}-\d{2}$/.test(cpf);
-    }
-
-    // Validação de telefone: (99) 99999-9999 ou (99) 9999-9999
-    function validarTelefone(telefone: string) {
-      return /^\(\d{2}\)\s?\d{4,5}-\d{4}$/.test(telefone);
+      setEnviado(true);
+      setErro("");
+      setTimeout(() => {
+        setEnviado(false);
+        onClose();
+      }, 2000);
     }
 
     // Função para aplicar máscara de CPF
@@ -195,12 +170,22 @@ export default function Home() {
         .slice(0, 15);
     }
 
+    // Função para aplicar máscara de data: dd/mm/aaaa
+    function maskDataNascimento(value: string) {
+      return value
+        .replace(/\D/g, "") // Remove tudo que não é dígito
+        .replace(/(\d{2})(\d)/, "$1/$2")
+        .replace(/(\d{2})\/(\d{2})(\d)/, "$1/$2/$3")
+        .slice(0, 10);
+    }
+
     return (
-      <div className="nova-modal">
+      <div className="nova-modal">""
         <form className="nova-form" onSubmit={handleSubmit}>
           <h3>Inscreva-se para: {vaga}</h3>
           <input
             type="text"
+            name="nome"
             placeholder="Nome completo"
             value={nome}
             onChange={e => setNome(e.target.value)}
@@ -208,6 +193,7 @@ export default function Home() {
           />
           <input
             type="tel"
+            name="telefone"
             placeholder="Whatsapp (99) 99999-9999"
             value={telefone}
             onChange={e => setTelefone(maskTelefone(e.target.value))}
@@ -215,6 +201,7 @@ export default function Home() {
           />
           <input
             type="text"
+            name="cpf"
             placeholder="CPF 000.000.000-00"
             value={cpf}
             onChange={e => setCpf(maskCPF(e.target.value))}
@@ -224,17 +211,18 @@ export default function Home() {
             <span>Data de nascimento</span>
             <input
               type="text"
+              name="nascimento"
               placeholder="Digite a data de nascimento"
               value={nascimento}
-              onChange={e => setNascimento(e.target.value)}
+              onChange={e => setNascimento(maskDataNascimento(e.target.value))}
               required
             />
           </div>
           <button type="submit" className="nova-btn" disabled={enviado}>
-            {enviado ? "✅ Enviado!" : "Enviar candidatura"}
+            {enviado ? "✅ Enviado com sucesso" : "Enviar candidatura"}
           </button>
           {erro && <div className="nova-form-erro">{erro}</div>}
-          {enviado && <div className="nova-form-sucesso">Candidatura enviada com sucesso!</div>}
+          {enviado && <div className="nova-form-sucesso">Enviado com sucesso</div>}
           <button type="button" className="nova-btn" onClick={onClose} style={{ marginTop: 8 }}>
             Fechar
           </button>
