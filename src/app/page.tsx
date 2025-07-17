@@ -131,6 +131,16 @@ export default function Home() {
     async function handleSubmit(e: React.FormEvent) {
       e.preventDefault();
       setErro("");
+
+      if (!validarCPF(cpf)) {
+        setErro("CPF inválido. Use o formato 000.000.000-00");
+        return;
+      }
+      if (!validarTelefone(telefone)) {
+        setErro("Telefone inválido. Use o formato (99) 99999-9999");
+        return;
+      }
+
       const formData = new FormData();
       formData.append("nome", nome);
       formData.append("telefone", telefone);
@@ -156,6 +166,44 @@ export default function Home() {
       }
     }
 
+    // Validação de CPF: 000.000.000-00
+    function validarCPF(cpf: string) {
+      return /^\d{3}\.\d{3}\.\d{3}-\d{2}$/.test(cpf);
+    }
+
+    // Validação de telefone: (99) 99999-9999 ou (99) 9999-9999
+    function validarTelefone(telefone: string) {
+      return /^\(\d{2}\)\s?\d{4,5}-\d{4}$/.test(telefone);
+    }
+
+    // Função para aplicar máscara de CPF
+    function maskCPF(value: string) {
+      return value
+        .replace(/\D/g, "") // Remove tudo que não é dígito
+        .replace(/(\d{3})(\d)/, "$1.$2")
+        .replace(/(\d{3})(\d)/, "$1.$2")
+        .replace(/(\d{3})(\d{1,2})$/, "$1-$2")
+        .slice(0, 14);
+    }
+
+    // Função para aplicar máscara de telefone (99) 99999-9999 ou (99) 9999-9999
+    function maskTelefone(value: string) {
+      return value
+        .replace(/\D/g, "")
+        .replace(/^(\d{2})(\d)/g, "($1) $2")
+        .replace(/(\d{4,5})(\d{4})$/, "$1-$2")
+        .slice(0, 15);
+    }
+
+    // Função para aplicar máscara de data: dd/mm/aaaa
+    function maskDataNascimento(value: string) {
+      return value
+        .replace(/\D/g, "") // Remove tudo que não é dígito
+        .replace(/(\d{2})(\d)/, "$1/$2")
+        .replace(/(\d{2})\/(\d{2})(\d)/, "$1/$2/$3")
+        .slice(0, 10);
+    }
+
     return (
       <div className="nova-modal">
         <form className="nova-form" onSubmit={handleSubmit}>
@@ -169,24 +217,25 @@ export default function Home() {
           />
           <input
             type="tel"
-            placeholder="Whatsapp"
+            placeholder="Whatsapp (99) 99999-9999"
             value={telefone}
-            onChange={e => setTelefone(e.target.value)}
+            onChange={e => setTelefone(maskTelefone(e.target.value))}
             required
           />
           <input
             type="text"
-            placeholder="CPF"
+            placeholder="CPF 000.000.000-00"
             value={cpf}
-            onChange={e => setCpf(e.target.value)}
+            onChange={e => setCpf(maskCPF(e.target.value))}
             required
           />
           <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
             <span>Data de nascimento</span>
             <input
-              type="date"
+              type="text"
+              placeholder="Digite a data (dd/mm/aaaa)"
               value={nascimento}
-              onChange={e => setNascimento(e.target.value)}
+              onChange={e => setNascimento(maskDataNascimento(e.target.value))}
               required
             />
           </div>
@@ -194,6 +243,7 @@ export default function Home() {
             {enviado ? "✅ Enviado!" : "Enviar candidatura"}
           </button>
           {erro && <div className="nova-form-erro">{erro}</div>}
+          {enviado && <div className="nova-form-sucesso">Candidatura enviada com sucesso!</div>}
           <button type="button" className="nova-btn" onClick={onClose} style={{ marginTop: 8 }}>
             Fechar
           </button>

@@ -10,14 +10,11 @@ datasource db {
 model Candidatura {
   id           Int      @id @default(autoincrement())
   nome         String
-  email        String
   telefone     String
   cpf          String
   nascimento   DateTime
-  vaga         String?  // Título da vaga
-  localizacao  String?  // Localização da vaga
-  curriculo    String?  // Caminho ou nome do arquivo
+  vaga         String?
+  localizacao  String?
+  curriculo    String?
   createdAt    DateTime @default(now())
-  
-  @@map("candidaturas")
 }

@@ -9,17 +9,16 @@ export async function POST(req: NextRequest) {
     
     const data = await req.formData();
     const nome = data.get("nome") as string;
-    const email = data.get("email") as string;
     const telefone = data.get("telefone") as string;
     const cpf = data.get("cpf") as string;
     const nascimento = data.get("nascimento") as string;
     const vaga = data.get("vaga") as string;
     const localizacao = data.get("localizacao") as string;
 
-    console.log("Dados recebidos:", { nome, email, telefone, cpf, nascimento, vaga, localizacao });
+    console.log("Dados recebidos:", { nome, telefone, cpf, nascimento, vaga, localizacao });
 
     // Validar campos obrigatórios
-    if (!nome || !email || !telefone || !cpf || !nascimento) {
+    if (!nome || !telefone || !cpf || !nascimento) {
       console.error("Campos obrigatórios não preenchidos");
       return NextResponse.json(
         { sucesso: false, erro: "Todos os campos obrigatórios devem ser preenchidos." },
@@ -42,10 +41,11 @@ export async function POST(req: NextRequest) {
     const candidatura = await prisma.candidatura.create({
       data: {
         nome,
-        email,
         telefone,
         cpf,
         nascimento: dataValida,
+        vaga,
+        localizacao,
         curriculo: null, // Implementar upload de arquivo posteriormente
       },
     });
@@ -58,32 +58,17 @@ export async function POST(req: NextRequest) {
       candidatura: {
         id: candidatura.id,
         nome: candidatura.nome,
-        email: candidatura.email,
-        vaga: vaga,
-        localizacao: localizacao
+        telefone: candidatura.telefone,
+        cpf: candidatura.cpf,
+        nascimento: candidatura.nascimento,
+        vaga: candidatura.vaga,
+        localizacao: candidatura.localizacao,
       }
     });
 
   } catch (error) {
     console.error("Erro detalhado:", error);
     
-    // Tratar diferentes tipos de erro
-    if (error instanceof Error) {
-      if (error.message.includes("connect")) {
-        return NextResponse.json(
-          { sucesso: false, erro: "Erro de conexão com o banco de dados." },
-          { status: 503 }
-        );
-      }
-      
-      if (error.message.includes("unique constraint")) {
-        return NextResponse.json(
-          { sucesso: false, erro: "E-mail ou CPF já cadastrado para esta vaga." },
-          { status: 409 }
-        );
-      }
-    }
-
     return NextResponse.json(
       { sucesso: false, erro: "Erro interno do servidor. Tente novamente." },
       { status: 500 }

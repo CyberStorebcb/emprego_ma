@@ -344,6 +344,24 @@
   color: #f3f4f6;
   border: 1.5px solid #38bdf8;
 }
+.nova-form-sucesso {
+  color: #22c55e;
+  font-weight: 600;
+  margin-top: 8px;
+  padding: 10px;
+  background-color: #f0fdf4;
+  border-radius: 8px;
+  text-align: center;
+}
+.nova-form-erro {
+  color: #dc2626;
+  font-weight: 600;
+  margin-top: 8px;
+  padding: 10px;
+  background-color: #fef2f2;
+  border-radius: 8px;
+  text-align: center;
+}
 
 @media (max-width: 700px) {
   .nova-nav, .nova-header, .nova-main {
