@@ -195,15 +195,6 @@ export default function Home() {
         .slice(0, 15);
     }
 
-    // Função para aplicar máscara de data: dd/mm/aaaa
-    function maskDataNascimento(value: string) {
-      return value
-        .replace(/\D/g, "") // Remove tudo que não é dígito
-        .replace(/(\d{2})(\d)/, "$1/$2")
-        .replace(/(\d{2})\/(\d{2})(\d)/, "$1/$2/$3")
-        .slice(0, 10);
-    }
-
     return (
       <div className="nova-modal">
         <form className="nova-form" onSubmit={handleSubmit}>
@@ -233,9 +224,9 @@ export default function Home() {
             <span>Data de nascimento</span>
             <input
               type="text"
-              placeholder="Digite a data (dd/mm/aaaa)"
+              placeholder="Digite a data de nascimento"
               value={nascimento}
-              onChange={e => setNascimento(maskDataNascimento(e.target.value))}
+              onChange={e => setNascimento(e.target.value)}
               required
             />
           </div>
