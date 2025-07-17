@@ -79,17 +79,21 @@ export default function Home() {
 
   // Gera vagas para todas as cidades do estado selecionado
   const vagasGeradas = useMemo(() => {
-    if (!estado) return [];
-    return cidadesDoEstado.flatMap(cidade =>
+    // Se nenhum estado selecionado, use todas as cidades de todos os estados
+    const cidadesParaUsar = estado
+      ? cidades.filter(c => c.Estado === estado)
+      : cidades;
+
+    return cidadesParaUsar.flatMap(cidade =>
       VAGAS_BASE.map((vaga, idx) => ({
         id: `${cidade.ID}-${idx}`,
         titulo: vaga.titulo,
         descricao: vaga.descricao,
         cidade: cidade.Nome,
-        estado: estados.find(e => e.ID === estado)?.Sigla || ""
+        estado: estados.find(e => e.ID === cidade.Estado)?.Sigla || ""
       }))
     );
-  }, [estado, cidadesDoEstado, estados]);
+  }, [estado, cidades, estados]);
 
   // Filtro por cidade (se selecionada)
   const vagasFiltradas = cidade
@@ -201,7 +205,7 @@ export default function Home() {
   return (
     <div className={`nova-root ${tema}`}>
       <nav className="nova-nav">
-        <span className="nova-logo"><span className="nova-logo-accent">JobWave</span></span>
+        <span className="nova-logo"><span className="nova-logo-accent">Empregos</span></span>
         <button
           className="nova-theme"
           onClick={() => setTema(tema === "claro" ? "escuro" : "claro")}
@@ -283,7 +287,7 @@ export default function Home() {
         </button>
       </div>
       <footer className="nova-footer">
-        <span>© {new Date().getFullYear()} JobWave • Todos os direitos reservados</span>
+        <span>© {new Date().getFullYear()} Empregos BR • Todos os direitos reservados</span>
       </footer>
       {modalVaga && (
         <FormularioInscricao
